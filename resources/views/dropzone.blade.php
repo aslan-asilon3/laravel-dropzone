@@ -17,7 +17,7 @@
 <div class="container">
     <div class="jumbotron">
       <h2 class="text-center">Dropzone file upload</h2>
-        <form action="/file-upload" id="my-awesome-dropzone" class="dropzone">
+        <form id="my-awesome-dropzone" class="dropzone">
           @csrf
         </form>
     </div>
