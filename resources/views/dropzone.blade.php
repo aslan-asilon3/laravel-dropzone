@@ -21,7 +21,11 @@
           @csrf
         </form>
     </div>
-  <div id="success_box" class="alert alert-success alert-dismissable" style="display: none;"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Success !</strong>&emsp;All Files uploaded successfully.</div>    
+
+    <button type="submit" id="button" class="btn btn-success" >Submit</button>
+    <div class="row clearfix"></div>
+    <div id="success_box" class="alert alert-success alert-dismissable" style="display: none;margin-top: 20px;"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Success !</strong>&emsp;All Files uploaded successfully.</div>    
+
 </div>
 <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types -->
 <!-- https://www.dropzonejs.com -->
@@ -30,6 +34,7 @@
       Dropzone.autoDiscover = false;
       $("form#my-awesome-dropzone").dropzone({
         url: "file-upload",
+        autoProcessQueue: false,
         paramName: "file", // The name that will be used to transfer the file
         maxFiles: 10,
         uploadMultiple :false,
@@ -46,7 +51,12 @@
         },
         
         init: function () {
-          this.on("complete", function (file) {
+            var myDropzone = this;
+            $("#button").click(function (e) {
+              e.preventDefault();
+              myDropzone.processQueue();
+            });
+            this.on("complete", function (file) {
             // console.log(file, done);
             if(this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
                 if(file.status=="error"){
@@ -62,6 +72,7 @@
         }
       });
 
+      
     </script>
 </body>
 </html>
